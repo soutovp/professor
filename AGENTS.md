@@ -741,6 +741,20 @@ Uma nota isolada não deve necessariamente representar domínio permanente.
 
 Existem três categorias principais.
 
+## PRINCÍPIO FUNDAMENTAL
+
+O chat é o ambiente principal de tutoria e interação com o Professor.
+
+A aplicação web local é o ambiente acadêmico responsável por atividades
+estruturadas, avaliações, exercícios persistentes, provas, projetos,
+histórico, desempenho e certificados.
+
+Perguntas rápidas e exercícios de fixação podem ocorrer no chat.
+
+Provas, testes, simulados, avaliações formais e atividades com registro de
+desempenho devem, sempre que tecnicamente possível, utilizar a plataforma
+educacional.
+
 ## Diagnóstica
 
 Antes do aprendizado.
