@@ -773,6 +773,19 @@ Depois de um módulo ou matéria.
 
 Pode gerar nota e conclusão.
 
+## PLATAFORMA DE AVALIAÇÕES
+
+O sistema NÃO deve criar uma nova página HTML específica para cada prova.
+
+O `learning-platform-engineer` deverá construir e manter uma interface
+genérica capaz de carregar avaliações persistidas através de um ID.
+
+Exemplo:
+/assessment?id=JS-FUNCOES-001
+
+Uma nova avaliação deve ser predominantemente um conjunto de dados criado
+pelo `assessment-specialist`, e não uma nova implementação de frontend.
+
 ---
 
 # 29. CRIAÇÃO DE PROVAS
@@ -834,20 +847,18 @@ Quando possível, gere variações para evitar memorização puramente mecânica
 
 ---
 
-# 32. CORREÇÃO
+# 32. CORREÇÃO, FEEDBACK E ADAPTAÇÃO
 
 Toda avaliação deverá possuir critérios definidos antes da correção.
 
 Quando respostas discursivas ou projetos forem avaliados, utilize rubricas.
 
-O feedback deverá explicar:
+Após a correção de uma avaliação, o Professor deve OBRIGATORIAMENTE realizar as seguintes etapas antes de qualquer avanço na trilha:
 
-* o que estava correto;
-* o que estava incorreto;
-* qual conceito precisa ser revisto;
-* como melhorar.
-
-Não entregue apenas a nota.
+1. **Diagnóstico do Nível de Entendimento:** Identificar claramente os tópicos dominados, as lacunas conceituais e as causas raízes dos erros.
+2. **Feedback Estruturado ao Aluno:** Apresentar um feedback formativo e claro. Explicar erros, acertos e os conceitos exatos que precisam ser revistos. Nunca entregue apenas a nota.
+3. **Adaptação Imediata do Aprendizado:** Adaptar a trilha com ênfase rigorosa nos conteúdos em que o aluno teve baixo desempenho. O sistema NÃO deve avançar mecanicamente. Aplique reforço, desça na complexidade dos pré-requisitos quando necessário e ofereça prática direcionada focada nas lacunas.
+4. **Orientação Explícita de Próximos Passos:** Indicar ao aluno exatamente qual é o plano de ação imediato para prosseguir nos estudos (ex: revisar um tópico, refazer um exercício, ou avançar).
 
 ---
 
@@ -965,6 +976,14 @@ O projeto deve possuir:
 * conhecimentos avaliados.
 
 Em programação, o Professor não deve implementar o projeto pelo aluno.
+
+Projetos de revisão estruturados deverão, quando a infraestrutura permitir,
+ser disponibilizados através da plataforma educacional e possuir registro
+persistente de submissões, tentativas, feedback e desempenho.
+
+Em projetos de programação, o sistema poderá fornecer arquivos iniciais,
+testes automatizados e ambiente de execução, mas nunca deverá implementar
+a solução destinada ao aluno.
 
 ---
 
@@ -1661,3 +1680,591 @@ deve possuir instruções dizendo que o agente deve:
 Essas instruções pertencem exclusivamente ao `AGENTS.md` consumido pelo Agent Padrão ou às instruções específicas do próprio Agent Padrão.
 
 Os especialistas poderão apenas **recomendar ao orquestrador a utilização de outro especialista**.
+
+---
+
+# EXPERIÊNCIA DE LEITURA E CONTEÚDO TEÓRICO
+
+## PRINCÍPIO FUNDAMENTAL
+
+O chat é utilizado para interação direta com o Professor, dúvidas, orientação, feedback e acompanhamento.
+
+Conteúdos teóricos estruturados e relevantes para a disciplina devem também ser transformados em material persistente de estudo dentro da plataforma educacional.
+
+O aluno não deve depender do histórico do chat para revisar uma matéria.
+
+A plataforma deve funcionar como o ambiente permanente de estudo.
+
+---
+
+# MATERIAL TEÓRICO
+
+Conteúdos relevantes ensinados durante a disciplina poderão gerar páginas de estudo estruturadas.
+
+Exemplos:
+
+```text
+Matéria
+└── Módulo
+    ├── Aula 01
+    │   ├── Introdução
+    │   ├── Conceitos
+    │   ├── Exemplos
+    │   ├── Observações
+    │   ├── Resumo
+    │   └── Exercícios
+    │
+    ├── Aula 02
+    └── Aula 03
+```
+
+Essas páginas deverão permitir que o aluno posteriormente:
+
+* releia a explicação;
+* revise conceitos;
+* consulte exemplos;
+* veja materiais relacionados;
+* execute exercícios;
+* acompanhe progresso;
+* avance para a próxima aula.
+
+---
+
+# CHAT E MATERIAL PERSISTENTE
+
+Nem toda mensagem do Professor deve automaticamente virar uma página.
+
+O Agent Padrão deverá distinguir:
+
+## Conversação
+
+Não precisa necessariamente ser persistida.
+
+Exemplos:
+
+* esclarecimento rápido;
+* pergunta do aluno;
+* pequena correção;
+* conversa;
+* orientação momentânea.
+
+## Conteúdo Acadêmico
+
+Deve ser considerado para persistência.
+
+Exemplos:
+
+* aula;
+* explicação estruturada;
+* conceito importante;
+* resumo;
+* material de revisão;
+* tutorial;
+* demonstração;
+* referência;
+* conteúdo necessário para avaliações futuras.
+
+---
+
+# PÁGINAS DE AULA
+
+Uma página de aula poderá conter:
+
+```text
+Título
+
+Objetivo da aula
+
+Introdução
+
+Conceitos principais
+
+Explicação
+
+Exemplos
+
+Diagramas ou ilustrações, quando úteis
+
+Observações importantes
+
+Erros comuns
+
+Material complementar
+
+Resumo
+
+Perguntas de recuperação ativa
+
+Exercícios
+
+Próxima aula
+```
+
+A estrutura deverá ser adaptada à matéria.
+
+Não force todas as seções quando não forem necessárias.
+
+---
+
+# EXPERIÊNCIA DE LEITURA
+
+A interface deve ser projetada para leitura prolongada.
+
+Prioridades:
+
+1. legibilidade;
+2. conforto visual;
+3. hierarquia clara;
+4. baixa carga cognitiva;
+5. facilidade de navegação;
+6. acessibilidade;
+7. responsividade.
+
+Evite interfaces visualmente carregadas.
+
+---
+
+# LARGURA DO CONTEÚDO
+
+Textos longos não devem ocupar toda a largura de telas grandes.
+
+Utilize uma coluna de leitura confortável.
+
+Como referência de design:
+
+```text
+aproximadamente 60–80 caracteres por linha
+```
+
+O layout poderá possuir áreas laterais para navegação, progresso ou índice, mas o corpo principal da leitura deve permanecer limitado.
+
+---
+
+# TIPOGRAFIA
+
+Utilize fontes altamente legíveis para leitura prolongada.
+
+Priorize famílias tipográficas:
+
+* sans-serif modernas e neutras;
+* com boa diferenciação entre caracteres;
+* com múltiplos pesos;
+* otimizadas para telas.
+
+O tamanho do texto principal deve ser confortável em desktop e dispositivos móveis.
+
+Como referência inicial:
+
+```text
+Desktop:
+16px–18px ou equivalente
+
+Mobile:
+16px ou equivalente
+```
+
+A implementação deve utilizar preferencialmente unidades relativas quando apropriado.
+
+Evite textos excessivamente pequenos.
+
+---
+
+# ESPAÇAMENTO
+
+O conteúdo deve respirar.
+
+Utilize:
+
+* line-height confortável;
+* espaçamento entre parágrafos;
+* separação clara entre seções;
+* margens adequadas;
+* hierarquia visual consistente.
+
+Para textos extensos, prefira aproximadamente:
+
+```text
+line-height: 1.5–1.8
+```
+
+como ponto inicial, ajustado à tipografia utilizada.
+
+---
+
+# HIERARQUIA
+
+A página deve permitir que o aluno identifique rapidamente:
+
+```text
+Título
+↓
+Seção
+↓
+Subseção
+↓
+Conteúdo
+↓
+Exemplo
+↓
+Observação
+```
+
+Não dependa somente de tamanho de fonte.
+
+Utilize também:
+
+* espaçamento;
+* peso;
+* posição;
+* componentes;
+* contraste adequado.
+
+---
+
+# TEMA CLARO E TEMA ESCURO
+
+A plataforma deverá possuir:
+
+```text
+Light Mode
+Dark Mode
+```
+
+Preferencialmente também:
+
+```text
+System
+```
+
+para seguir a configuração do sistema operacional.
+
+A preferência do usuário deverá ser persistida.
+
+---
+
+# DARK MODE
+
+Dark Mode não significa utilizar:
+
+```text
+#000000
+```
+
+para todo o fundo e:
+
+```text
+#FFFFFF
+```
+
+para todo o texto.
+
+Evite contrastes excessivamente agressivos.
+
+Prefira superfícies escuras levemente suavizadas e texto de alto contraste, mas confortável para leitura prolongada.
+
+---
+
+# LIGHT MODE
+
+Evite branco excessivamente brilhante combinado com grandes blocos de texto preto absoluto quando houver alternativa mais confortável.
+
+Utilize contraste suficiente para acessibilidade mantendo conforto visual.
+
+---
+
+# CONTRASTE
+
+A interface deve seguir boas práticas modernas de acessibilidade.
+
+Texto, controles, links e estados interativos devem possuir contraste adequado.
+
+Nunca sacrifique legibilidade em favor da estética.
+
+---
+
+# ELEMENTOS DE DESTAQUE
+
+Utilize componentes próprios para:
+
+## Informação
+
+```text
+💡 Conceito importante
+```
+
+## Atenção
+
+```text
+⚠️ Erro comum
+```
+
+## Exemplo
+
+```text
+Exemplo
+```
+
+## Definição
+
+```text
+Definição
+```
+
+## Exercício
+
+```text
+Pratique
+```
+
+## Material complementar
+
+```text
+Leitura recomendada
+```
+
+Esses elementos devem ser visualmente distinguíveis sem sobrecarregar a interface.
+
+---
+
+# CÓDIGO
+
+Quando houver programação, utilize blocos de código adequados para leitura.
+
+Devem possuir:
+
+* syntax highlighting;
+* botão de copiar;
+* scroll horizontal quando necessário;
+* fonte monoespaçada legível;
+* identificação opcional da linguagem.
+
+Não reduza excessivamente o tamanho da fonte para encaixar código.
+
+---
+
+# NAVEGAÇÃO DA AULA
+
+O aluno deverá conseguir navegar facilmente entre:
+
+```text
+← Aula anterior
+
+Índice da matéria
+
+Próxima aula →
+```
+
+Também deverá ser possível visualizar o progresso dentro do módulo.
+
+---
+
+# ÍNDICE DA PÁGINA
+
+Aulas extensas poderão apresentar índice baseado nos títulos da página.
+
+Exemplo:
+
+```text
+Nesta aula
+
+1. O que são funções
+2. Declaração
+3. Parâmetros
+4. Retorno
+5. Escopo
+6. Exercícios
+```
+
+Em telas menores o índice poderá ser recolhido.
+
+---
+
+# FOCO NA LEITURA
+
+Quando possível, disponibilize um modo de leitura com menos distrações.
+
+Exemplo:
+
+```text
+Modo de leitura
+```
+
+que poderá minimizar:
+
+* menus secundários;
+* painéis;
+* informações não essenciais.
+
+---
+
+# PROGRESSO
+
+A página poderá apresentar:
+
+```text
+Módulo 2 de 8
+Aula 3 de 6
+Progresso: 42%
+```
+
+Não utilize o progresso como elemento visual excessivamente dominante.
+
+---
+
+# RESPONSIVIDADE
+
+Toda aula deverá ser confortável em:
+
+* desktop;
+* notebook;
+* tablet;
+* smartphone.
+
+Não considere desktop como único ambiente de estudo.
+
+---
+
+# ACESSIBILIDADE
+
+A plataforma deve considerar:
+
+* navegação por teclado;
+* foco visível;
+* HTML semântico;
+* labels;
+* contraste;
+* zoom;
+* leitores de tela;
+* prefers-reduced-motion;
+* tamanho de toque adequado em mobile.
+
+Movimentos e animações devem ser discretos.
+
+Não utilize animações constantes ao redor do texto.
+
+---
+
+# BAIXA CARGA COGNITIVA
+
+Evite:
+
+* excesso de cards;
+* gradientes desnecessários;
+* muitos estilos diferentes;
+* animações constantes;
+* dezenas de cores;
+* excesso de ícones;
+* informações concorrendo pela atenção.
+
+O conteúdo deve ser o elemento principal da tela.
+
+---
+
+# RESPONSABILIDADE DO `learning-experience-designer`
+
+O `learning-experience-designer` será responsável por:
+
+* Design System;
+* experiência de leitura;
+* tipografia;
+* hierarquia visual;
+* Light Mode;
+* Dark Mode;
+* responsividade;
+* acessibilidade;
+* componentes acadêmicos;
+* navegação entre aulas;
+* UX de exercícios e avaliações;
+* UX de progresso;
+* redução de carga cognitiva.
+
+Ele define experiência e especificações.
+
+Não implementa a aplicação quando existir um `learning-platform-engineer`.
+
+---
+
+# RESPONSABILIDADE DO `learning-platform-engineer`
+
+O `learning-platform-engineer` deverá implementar as especificações definidas pelo sistema de design e pelo `learning-experience-designer`.
+
+Ele é responsável por transformar essas especificações em:
+
+* componentes;
+* páginas;
+* layouts;
+* estilos;
+* comportamento;
+* persistência;
+* responsividade;
+* acessibilidade técnica.
+
+---
+
+# FLUXO
+
+Para criação da experiência visual:
+
+```text
+Agent Padrão
+      ↓
+learning-experience-designer
+      ↓
+Especificação UX/UI
+      ↓
+Agent Padrão
+      ↓
+learning-platform-engineer
+      ↓
+Implementação
+```
+
+Nenhum dos dois agentes deve invocar diretamente o outro.
+
+---
+
+# MATERIAL GERADO PELO PROFESSOR
+
+Fluxo recomendado:
+
+```text
+university-professor
+        ↓
+Conteúdo acadêmico
+        ↓
+Agent Padrão
+        ↓
+Persistência da aula
+        ↓
+Plataforma
+        ↓
+Página de estudo
+```
+
+Quando a estrutura pedagógica precisar ser definida:
+
+```text
+curriculum-designer
+        ↓
+Agent Padrão
+        ↓
+university-professor
+        ↓
+Agent Padrão
+        ↓
+Plataforma
+```
+
+---
+
+# PRINCÍPIO FINAL DE EXPERIÊNCIA
+
+A aplicação deve transmitir a sensação de:
+
+> estudar em um ambiente organizado, confortável e acadêmico.
+
+E não:
+
+> ler uma enorme resposta de chatbot dentro de uma página web.
+
+O conteúdo deve possuir estrutura editorial própria, navegação, hierarquia e experiência de leitura independente da conversa.

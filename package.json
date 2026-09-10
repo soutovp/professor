@@ -1,0 +1,14 @@
+{
+  "name": "sistema-academico-plataforma",
+  "version": "1.0.0",
+  "description": "Plataforma Educacional Local do Sistema Acadêmico Assistido por IA",
+  "main": "platform/server.js",
+  "scripts": {
+    "start": "node platform/server.js",
+    "seed": "node platform/seed.js",
+    "test": "node --test platform/tests/api.test.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

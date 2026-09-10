@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="system">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia Dev - Sistema Acadêmico Inteligente</title>
+  <meta name="description" content="Plataforma de estudos estruturada, progressiva e mensurável com foco em domínio técnico e autonomia.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+</head>
+<body>
+  <!-- Header Principal de Navegação -->
+  <header class="app-header" id="appHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="#/" class="brand-link" aria-label="Página Inicial do Sistema Acadêmico">
+          <span class="brand-icon" aria-hidden="true">🎓</span>
+          <div class="brand-info">
+            <span class="brand-name">Academia Dev</span>
+            <span class="brand-tagline">Plataforma de Engenharia</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="app-nav" aria-label="Navegação Principal">
+        <ul class="nav-list">
+          <li><a href="#/" class="nav-link" data-route="dashboard">Dashboard</a></li>
+          <li><a href="#/subjects" class="nav-link" data-route="subjects">Matérias</a></li>
+          <li><a href="#/playground" class="nav-link" data-route="playground">Playground</a></li>
+          <li><a href="#/srs" class="nav-link" data-route="srs">Revisão (SRS)</a></li>
+          <li><a href="#/certificates" class="nav-link" data-route="certificates">Certificados</a></li>
+          <li><a href="#/history" class="nav-link" data-route="history">Histórico</a></li>
+          <li><a href="#/grading" class="nav-link" data-route="grading">Correção</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Alternador de Tema -->
+        <div class="theme-switch-wrapper" title="Alternar tema de cores">
+          <label for="themeSelect" class="sr-only">Selecionar Tema</label>
+          <select id="themeSelect" class="theme-select" aria-label="Escolher tema">
+            <option value="system">💻 Sistema</option>
+            <option value="light">☀️ Claro</option>
+            <option value="dark">🌙 Escuro</option>
+          </select>
+        </div>
+
+        <!-- Botão Hamburger Mobile -->
+        <button id="hamburgerBtn" class="hamburger-btn" type="button" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobileNav">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Backdrop Overlay e Mobile Navigation Drawer -->
+  <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
+  <nav id="mobileNav" class="mobile-nav" aria-label="Navegação Móvel" aria-hidden="true">
+    <ul class="mobile-nav-list">
+      <li><a href="#/" class="mobile-nav-link" data-route="dashboard"><span class="mobile-nav-icon" aria-hidden="true">📊</span><span>Dashboard</span></a></li>
+      <li><a href="#/subjects" class="mobile-nav-link" data-route="subjects"><span class="mobile-nav-icon" aria-hidden="true">📚</span><span>Matérias</span></a></li>
+      <li><a href="#/playground" class="mobile-nav-link" data-route="playground"><span class="mobile-nav-icon" aria-hidden="true">⚡</span><span>Playground</span></a></li>
+      <li><a href="#/srs" class="mobile-nav-link" data-route="srs"><span class="mobile-nav-icon" aria-hidden="true">🧠</span><span>Revisão (SRS)</span></a></li>
+      <li><a href="#/certificates" class="mobile-nav-link" data-route="certificates"><span class="mobile-nav-icon" aria-hidden="true">🏆</span><span>Certificados</span></a></li>
+      <li><a href="#/history" class="mobile-nav-link" data-route="history"><span class="mobile-nav-icon" aria-hidden="true">📜</span><span>Histórico</span></a></li>
+      <li><a href="#/grading" class="mobile-nav-link" data-route="grading"><span class="mobile-nav-icon" aria-hidden="true">📝</span><span>Correção</span></a></li>
+    </ul>
+    <div class="mobile-nav-divider"></div>
+    <div class="mobile-theme-switch-wrapper">
+      <label for="mobileThemeSelect" class="mobile-theme-label">Tema:</label>
+      <select id="mobileThemeSelect" class="theme-select mobile-theme-select" aria-label="Escolher tema móvel">
+        <option value="system">💻 Sistema</option>
+        <option value="light">☀️ Claro</option>
+        <option value="dark">🌙 Escuro</option>
+      </select>
+    </div>
+  </nav>
+
+  <!-- Container de Notificação / Toast -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Container Principal das Telas Dinâmicas -->
+  <main id="app" class="main-content" role="main" tabindex="-1">
+    <div class="loading-state">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Carregando plataforma acadêmica...</p>
+    </div>
+  </main>
+
+  <!-- Footer Discreto -->
+  <footer class="app-footer" id="appFooter">
+    <div class="footer-container">
+      <p>Sistema Acadêmico Assistido por IA • Ambiente Local Offline de Alta Fidelidade</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+[
+  {
+    "id": "ex-v8-01",
+    "lesson_id": "lesson-js-01",
+    "type": "MULTIPLE_CHOICE",
+    "title": "Responsabilidades da V8 Engine",
+    "prompt_markdown": "Qual das seguintes afirmações descreve corretamente a divisão de responsabilidades entre a Call Stack e o Memory Heap na engine V8?",
+    "options": [
+      { "id": "A", "text": "A Call Stack armazena objetos complexos, enquanto o Memory Heap gerencia a ordem de execução das funções." },
+      { "id": "B", "text": "O Memory Heap aloca memória para variáveis primitivas apenas, enquanto a Call Stack aloca memória para objetos e arrays." },
+      { "id": "C", "text": "A Call Stack rastreia a execução do código (LIFO), armazenando variáveis primitivas e referências, enquanto o Memory Heap é uma região não estruturada usada para alocação de objetos e funções em memória." },
+      { "id": "D", "text": "Ambos gerenciam o DOM e as APIs da Web, sendo a Call Stack responsável pelas requisições de rede." }
+    ],
+    "correct_answer": "C",
+    "explanation": "A alternativa C está correta. A Call Stack (pilha de chamadas) é uma estrutura LIFO que guarda o contexto de execução atual, valores primitivos e ponteiros. O Memory Heap é o espaço amplo não estruturado onde objetos, arrays e funções (tipos de referência) são alocados.",
+    "order_index": 1
+  },
+  {
+    "id": "ex-v8-02",
+    "lesson_id": "lesson-js-01",
+    "type": "OUTPUT_PREDICTION",
+    "title": "Estouro de Pilha (Stack Overflow)",
+    "prompt_markdown": "Considere o seguinte trecho de código. O que acontecerá ao executá-lo e por quê?\n\n```javascript\nfunction recursao() {\n  return recursao();\n}\nrecursao();\n```",
+    "options": [
+      { "id": "A", "text": "O código retornará undefined, pois a função não tem caso base." },
+      { "id": "B", "text": "O código executará infinitamente até que o navegador ou o Node.js seja fechado pelo usuário." },
+      { "id": "C", "text": "Ocorrerá um erro 'Maximum call stack size exceeded' (Stack Overflow)." },
+      { "id": "D", "text": "O Memory Heap ficará sem espaço (Out of Memory)." }
+    ],
+    "correct_answer": "C",
+    "explanation": "A alternativa C está correta. Cada vez que a função `recursao` é chamada, um novo frame é adicionado à Call Stack. Como não há uma condição de parada (caso base), a Call Stack encherá rapidamente até atingir seu limite máximo, resultando num erro de Stack Overflow.",
+    "order_index": 2
+  },
+  {
+    "id": "ex-v8-03",
+    "lesson_id": "lesson-js-01",
+    "type": "CODE_CHALLENGE",
+    "title": "Mitigação de Memory Leak: Limpeza de Referências",
+    "prompt_markdown": "Em aplicações web de longa duração, manter referências desnecessárias a objetos na memória impede a liberação de espaço pelo Garbage Collector da V8. Implemente a função `limparReferencia(objeto, propriedade)` que anule ou remova a referência da propriedade especificada no objeto (`delete objeto[propriedade]` ou `objeto[propriedade] = null`), permitindo a coleta pelo GC.",
+    "initial_code": "function limparReferencia(objeto, propriedade) {\n  // Remova ou anule a referência da propriedade no objeto\n}",
+    "correct_answer": "function limparReferencia(objeto, propriedade) {\n  delete objeto[propriedade];\n  return objeto;\n}",
+    "explanation": "Ao anular ou deletar referências a objetos não mais necessários, o algoritmo Mark-and-Sweep do Garbage Collector da V8 não encontra caminhos a partir das raízes (roots) até a memória alocada no Heap, liberando os recursos e prevenindo memory leaks.",
+    "order_index": 3
+  },
+  {
+    "id": "ex-eventloop-01",
+    "lesson_id": "lesson-js-02",
+    "type": "MULTIPLE_CHOICE",
+    "title": "Papel e Funcionamento do Event Loop",
+    "prompt_markdown": "Qual é a principal função do Event Loop em JavaScript?",
+    "options": [
+      { "id": "A", "text": "Compilar o código JavaScript em linguagem de máquina." },
+      { "id": "B", "text": "Monitorar a Call Stack e as filas de tarefas, movendo callbacks das filas para a Call Stack quando esta estiver vazia." },
+      { "id": "C", "text": "Criar novas threads para execução de código assíncrono simultâneo." },
+      { "id": "D", "text": "Alocar dinamicamente a memória necessária para variáveis durante a execução." }
+    ],
+    "correct_answer": "B",
+    "explanation": "A alternativa B está correta. O Event Loop monitora constantemente a Call Stack. Se a Call Stack estiver vazia, ele verifica a fila de Microtasks e, em seguida, a fila de Macrotasks, movendo as funções prontas para serem executadas para a Call Stack.",
+    "order_index": 1
+  },
+  {
+    "id": "ex-eventloop-02",
+    "lesson_id": "lesson-js-02",
+    "type": "OUTPUT_PREDICTION",
+    "title": "Ordem de Execução: Microtasks vs Macrotasks",
+    "prompt_markdown": "Qual será a saída do código abaixo no console?\n\n```javascript\nconsole.log('1');\n\nsetTimeout(() => {\n  console.log('2');\n}, 0);\n\nPromise.resolve().then(() => {\n  console.log('3');\n});\n\nconsole.log('4');\n```",
+    "options": [
+      { "id": "A", "text": "1, 2, 3, 4" },
+      { "id": "B", "text": "1, 4, 2, 3" },
+      { "id": "C", "text": "1, 4, 3, 2" },
+      { "id": "D", "text": "1, 3, 4, 2" }
+    ],
+    "correct_answer": "C",
+    "explanation": "A alternativa C é a correta. O JavaScript executa primeiro o código síncrono (Macrotask principal), imprimindo '1' e '4'. O `setTimeout` é agendado como uma Macrotask para o próximo ciclo do Event Loop. A promessa resolvida agenda um callback na fila de Microtasks. O Event Loop sempre esvazia a fila de Microtasks antes de passar para a próxima Macrotask. Portanto, '3' (Microtask) é impresso antes de '2' (Macrotask).",
+    "order_index": 2
+  },
+  {
+    "id": "ex-eventloop-03",
+    "lesson_id": "lesson-js-02",
+    "type": "CODE_CHALLENGE",
+    "title": "Agendamento no Event Loop: Microtasks e Macrotasks",
+    "prompt_markdown": "Demonstre o controle sobre as filas do Event Loop implementando a função `agendarTarefas(executarMicro, executarMacro)`. A função deve agendar `executarMicro` na fila de Microtasks utilizando `Promise.resolve().then(...)` e agendar `executarMacro` na fila de Macrotasks utilizando `setTimeout(..., 0)`.",
+    "initial_code": "function agendarTarefas(executarMicro, executarMacro) {\n  // Agende executarMicro na Microtask Queue e executarMacro na Macrotask Queue\n}",
+    "correct_answer": "function agendarTarefas(executarMicro, executarMacro) {\n  Promise.resolve().then(executarMicro);\n  setTimeout(executarMacro, 0);\n}",
+    "explanation": "Callbacks agendados via `Promise.resolve().then(...)` entram na Microtask Queue, sendo processados imediatamente após o término do código síncrono. Já callbacks passados a `setTimeout(..., 0)` entram na Macrotask Queue, executando apenas no ciclo seguinte.",
+    "order_index": 3
+  },
+  {
+    "id": "ex-closures-01",
+    "lesson_id": "lesson-js-03",
+    "type": "MULTIPLE_CHOICE",
+    "title": "Comportamento de Closures",
+    "prompt_markdown": "O que caracteriza uma closure em JavaScript?",
+    "options": [
+      { "id": "A", "text": "É a capacidade do JavaScript de elevar declarações de variáveis (hoisting) para o topo do escopo." },
+      { "id": "B", "text": "É uma função que 'lembra' do ambiente léxico em que foi criada, tendo acesso a variáveis de seu escopo externo mesmo após a função externa ter retornado." },
+      { "id": "C", "text": "É um método de encapsular dados estritos de modo que nunca mais possam ser lidos ou modificados." },
+      { "id": "D", "text": "É o escopo global onde variáveis podem ser acessadas por qualquer função em qualquer arquivo." }
+    ],
+    "correct_answer": "B",
+    "explanation": "A alternativa B é a definição correta de closure. Closures permitem que uma função acesse o escopo léxico de onde foi definida, mesmo que a função que a encapsula já tenha concluído sua execução.",
+    "order_index": 1
+  },
+  {
+    "id": "ex-closures-02",
+    "lesson_id": "lesson-js-03",
+    "type": "OUTPUT_PREDICTION",
+    "title": "Hoisting de Variáveis vs Let/Const",
+    "prompt_markdown": "Qual será o resultado da execução do seguinte código?\n\n```javascript\nconsole.log(a);\nconsole.log(b);\nvar a = 10;\nlet b = 20;\n```",
+    "options": [
+      { "id": "A", "text": "undefined, undefined" },
+      { "id": "B", "text": "ReferenceError (para ambas)" },
+      { "id": "C", "text": "undefined e, em seguida, ReferenceError" },
+      { "id": "D", "text": "10, 20" }
+    ],
+    "correct_answer": "C",
+    "explanation": "A alternativa C é a correta. Variáveis declaradas com `var` são hoisted (elevadas) e inicializadas com `undefined`, logo `console.log(a)` imprime `undefined`. Já as variáveis declaradas com `let` ou `const` também sofrem hoisting, mas não são inicializadas. Elas permanecem na 'Temporal Dead Zone' (TDZ) até a linha de sua declaração, causando um `ReferenceError` ao tentar acessar `b` antes de sua inicialização.",
+    "order_index": 2
+  },
+  {
+    "id": "ex-closures-03",
+    "lesson_id": "lesson-js-03",
+    "type": "CODE_CHALLENGE",
+    "title": "Encapsulamento com Closures: Factory Function",
+    "prompt_markdown": "Implemente a factory function `criarContador(valorInicial = 0)` utilizando o conceito de Closures para encapsular uma variável privada. A função deve retornar uma função interna que, a cada invocação, incrementa o valor em 1 e retorna o novo valor atualizado.",
+    "initial_code": "function criarContador(valorInicial = 0) {\n  // Encapsule a variável e retorne a função de incremento\n}",
+    "correct_answer": "function criarContador(valorInicial = 0) {\n  let contador = valorInicial;\n  return function() {\n    contador += 1;\n    return contador;\n  };\n}",
+    "explanation": "A função retornada forma uma closure retendo a referência ao identificador `contador` presente no Lexical Environment de `criarContador`. Isso garante que o valor não seja acessível globalmente, fornecendo verdadeiro encapsulamento.",
+    "order_index": 3
+  },
+  {
+    "id": "ex-proto-01",
+    "lesson_id": "lesson-js-04",
+    "type": "MULTIPLE_CHOICE",
+    "title": "Herança Prototípica",
+    "prompt_markdown": "No contexto do JavaScript, se tentarmos acessar uma propriedade `nome` em um objeto `obj` e ela não existir diretamente nele, o que a engine fará?",
+    "options": [
+      { "id": "A", "text": "Lançará um erro de imediato (ReferenceError)." },
+      { "id": "B", "text": "Procurará pela propriedade na Prototype Chain do objeto, seguindo a referência `[[Prototype]]` (ou `__proto__`) até encontrá-la ou chegar a `null`." },
+      { "id": "C", "text": "Criará a propriedade dinamicamente e atribuirá o valor `undefined`." },
+      { "id": "D", "text": "Verificará automaticamente o escopo global." }
+    ],
+    "correct_answer": "B",
+    "explanation": "A alternativa B é correta. A Prototype Chain (cadeia de protótipos) é o mecanismo de herança do JS. Se uma propriedade não for encontrada no objeto, o JS desce pela cadeia, verificando o protótipo do objeto, depois o protótipo do protótipo, até encontrar a propriedade ou atingir o fim da cadeia (`null`), momento em que retorna `undefined`.",
+    "order_index": 1
+  },
+  {
+    "id": "ex-proto-02",
+    "lesson_id": "lesson-js-04",
+    "type": "OUTPUT_PREDICTION",
+    "title": "Previsão de Saída: Object.create e hasOwnProperty",
+    "prompt_markdown": "Considere o seguinte trecho de código utilizando delegação prototípica. Qual será a saída impressa no console?\n\n```javascript\nconst proto = { taxa: 0.1 };\nconst config = Object.create(proto);\nconfig.limite = 100;\n\nconsole.log(config.taxa);\nconsole.log(config.hasOwnProperty('taxa'));\nconsole.log(config.hasOwnProperty('limite'));\n```",
+    "options": [
+      { "id": "A", "text": "0.1, true, true" },
+      { "id": "B", "text": "0.1, false, true" },
+      { "id": "C", "text": "undefined, false, true" },
+      { "id": "D", "text": "0.1, false, false" }
+    ],
+    "correct_answer": "B",
+    "explanation": "A alternativa B é a correta. `Object.create(proto)` estabelece `proto` como o protótipo de `config`. Ao acessar `config.taxa`, como ela não existe diretamente no objeto, a engine delega para o protótipo e encontra `0.1`. Já `hasOwnProperty('taxa')` retorna `false` pois a propriedade é herdada e não própria. Por fim, `hasOwnProperty('limite')` retorna `true` pois `limite` foi definida diretamente na instância `config`.",
+    "order_index": 2
+  },
+  {
+    "id": "ex-proto-03",
+    "lesson_id": "lesson-js-04",
+    "type": "CODE_CHALLENGE",
+    "title": "Delegação Prototípica com Object.create",
+    "prompt_markdown": "Implemente a função `vincularPrototipo(proto, propriedades)` que utiliza `Object.create(proto)` para criar um novo objeto que herda diretamente de `proto` através da cadeia `[[Prototype]]`. Se `propriedades` for informado, atribua suas propriedades no objeto criado (via `Object.assign` ou atribuição direta) e retorne o objeto resultante.",
+    "initial_code": "function vincularPrototipo(proto, propriedades) {\n  // Crie um novo objeto herdando de proto e aplique propriedades\n}",
+    "correct_answer": "function vincularPrototipo(proto, propriedades) {\n  const obj = Object.create(proto);\n  if (propriedades) {\n    Object.assign(obj, propriedades);\n  }\n  return obj;\n}",
+    "explanation": "`Object.create(proto)` cria um objeto vinculado ao protótipo fornecido. O novo objeto herda os métodos e propriedades de `proto` por delegação, podendo sobrescrevê-los ou adicionar novas propriedades próprias sem alterar o protótipo original.",
+    "order_index": 3
+  },
+  {
+    "id": "ex-async-01",
+    "lesson_id": "lesson-js-05",
+    "type": "MULTIPLE_CHOICE",
+    "title": "Estados de uma Promise e Ciclo de Vida",
+    "prompt_markdown": "Uma Promise em JavaScript representa a eventual conclusão ou falha de uma operação assíncrona. Quais são os três estados possíveis de uma Promise e o que significa quando dizemos que ela foi liquidada ('settled')?",
+    "options": [
+      { "id": "A", "text": "Iniciada, Executando e Finalizada; 'settled' significa que o Garbage Collector a liberou da memória." },
+      { "id": "B", "text": "Pending, Fulfilled e Rejected; 'settled' significa que a Promise não está mais pendente, tendo sido resolvida com sucesso ou rejeitada, tornando seu estado e valor imutáveis." },
+      { "id": "C", "text": "Microtask, Macrotask e Render; 'settled' indica que ela foi enfileirada no Event Loop." },
+      { "id": "D", "text": "Resolved, Catching e Done; 'settled' indica que o bloco try/catch foi executado." }
+    ],
+    "correct_answer": "B",
+    "explanation": "Uma Promise possui três estados mutuamente exclusivos: Pending (pendente), Fulfilled (realizada com sucesso) e Rejected (rejeitada com erro). Quando uma Promise transita para Fulfilled ou Rejected, ela é dita 'settled' (liquidada) e seu estado e valor tornam-se imutáveis.",
+    "order_index": 1
+  },
+  {
+    "id": "ex-async-02",
+    "lesson_id": "lesson-js-05",
+    "type": "OUTPUT_PREDICTION",
+    "title": "Previsão de Fluxo: Then e Catch Encadeados",
+    "prompt_markdown": "Observe o código com Promises a seguir. O que será impresso no console?\n\n```javascript\nPromise.resolve('A')\n  .then(res => {\n    console.log(res);\n    throw new Error('Erro forçado');\n  })\n  .catch(err => {\n    console.log('B');\n    return 'C';\n  })\n  .then(res => {\n    console.log(res);\n  });\n```",
+    "options": [
+      { "id": "A", "text": "A, B" },
+      { "id": "B", "text": "A, Uncaught Error" },
+      { "id": "C", "text": "A, B, C" },
+      { "id": "D", "text": "A, C" }
+    ],
+    "correct_answer": "C",
+    "explanation": "A alternativa C é a correta. Primeiro, 'A' é recebido no `.then` e impresso. Em seguida, um erro é lançado, que pula diretamente para o bloco `.catch`. O bloco `.catch` imprime 'B' e retorna o valor 'C'. Retornar um valor (que não seja uma Promise rejeitada ou um erro lançado) dentro de um `.catch` gera uma nova Promise resolvida, que é passada para o `.then` seguinte, imprimindo 'C'.",
+    "order_index": 2
+  },
+  {
+    "id": "ex-async-03",
+    "lesson_id": "lesson-js-05",
+    "type": "CODE_CHALLENGE",
+    "title": "Implementação de Função Assíncrona sleep(ms)",
+    "prompt_markdown": "Implemente a função `sleep(ms)` que retorna uma `Promise` que resolve após `ms` milissegundos utilizando `setTimeout`.",
+    "initial_code": "function sleep(ms) {\n  // Retorne uma Promise que resolve após ms milissegundos\n}",
+    "correct_answer": "function sleep(ms) {\n  return new Promise(resolve => setTimeout(resolve, ms));\n}",
+    "explanation": "A função `sleep(ms)` encapsula o `setTimeout` em uma Promise. Quando o temporizador expira, a função `resolve()` é executada, permitindo pausar o fluxo de funções assíncronas utilizando `await sleep(ms)`.",
+    "order_index": 3
+  }
+]
